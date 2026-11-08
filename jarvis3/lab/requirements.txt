@@ -1,0 +1,8 @@
+# Only install into data/v3/lab/env, with --no-deps. Never change V2/Wisperno.
+speechbrain==1.1.2
+hyperpyyaml==1.2.3
+ruamel.yaml==0.19.1
+joblib==1.5.3
+sentencepiece==0.2.3
+onnx==1.23.2
+ml_dtypes==0.6.0

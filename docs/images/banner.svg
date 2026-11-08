@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-label="Jarvis V4: an offline voice assistant">
+<defs><radialGradient id="g" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#9fd8f0" stop-opacity=".35"/><stop offset="1" stop-color="#9fd8f0" stop-opacity="0"/></radialGradient>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f1823"/><stop offset="1" stop-color="#1b2a38"/></linearGradient></defs>
+<rect width="1200" height="420" fill="url(#bg)"/>
+<circle cx="930" cy="210" r="200" fill="url(#g)"/>
+<g transform="translate(930 210)" fill="none" stroke-linecap="round">
+<circle r="140" stroke="#223445" stroke-width="2"/><circle r="112" stroke="#9fd8f0" stroke-width="10" stroke-dasharray="150 60 90 70 120 60"/>
+<circle r="86" stroke="#f0b060" stroke-width="8" stroke-dasharray="60 40 110 40 90 30" transform="rotate(40)"/>
+<circle r="60" stroke="#6fb8d8" stroke-width="2"/>
+<polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22" stroke="#9fd8f0" stroke-width="5"/>
+<path d="M6 -18 V10 Q6 22 -6 22 Q-14 22 -17 15" stroke="#9fd8f0" stroke-width="7"/></g>
+<text x="70" y="150" font-family="Segoe UI,Arial,sans-serif" font-size="30" letter-spacing="10" fill="#9fd8f0">J A R V I S</text>
+<text x="66" y="235" font-family="Segoe UI,Arial,sans-serif" font-size="68" font-weight="700" fill="#f3f0e8">Your laptop,</text>
+<text x="66" y="305" font-family="Georgia,serif" font-style="italic" font-size="68" fill="#9fd8f0">listening.</text>
+<text x="70" y="355" font-family="Segoe UI,Arial,sans-serif" font-size="22" fill="#b9c6d2">An offline voice assistant for Windows. Nothing leaves the machine.</text>
+</svg>

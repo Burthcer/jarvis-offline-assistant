@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" role="img" aria-label="Timeline V1 to V4, 31 Oct to 8 Nov 2026">
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#e8eef3}.h{font-size:26px;font-weight:700}.d{font-size:14px;fill:#f0b060}.s{font-size:15px;fill:#a9bccb}</style>
+<rect width="1200" height="340" rx="18" fill="#0f1823"/>
+<line x1="60" y1="120" x2="1140" y2="120" stroke="#3a5368" stroke-width="3"/>
+<g fill="#9fd8f0"><circle cx="150" cy="120" r="12"/><circle cx="440" cy="120" r="12"/><circle cx="730" cy="120" r="12"/><circle cx="1020" cy="120" r="12" fill="#f0b060"/></g>
+<text class="h" x="150" y="80" text-anchor="middle">V1</text><text class="d" x="150" y="160" text-anchor="middle">31 Oct - 3 Nov</text><text class="s" x="150" y="195" text-anchor="middle">It works.</text><text class="s" x="150" y="217" text-anchor="middle">Voice, timers, reminders,</text><text class="s" x="150" y="239" text-anchor="middle">apps, a small AI.</text>
+<text class="h" x="440" y="80" text-anchor="middle">V2</text><text class="d" x="440" y="160" text-anchor="middle">3 - 5 Nov</text><text class="s" x="440" y="195" text-anchor="middle">Measure, then rebuild.</text><text class="s" x="440" y="217" text-anchor="middle">Better ears, action registry,</text><text class="s" x="440" y="239" text-anchor="middle">memory, learning.</text>
+<text class="h" x="730" y="80" text-anchor="middle">V3</text><text class="d" x="730" y="160" text-anchor="middle">5 - 8 Nov</text><text class="s" x="730" y="195" text-anchor="middle">Trust it.</text><text class="s" x="730" y="217" text-anchor="middle">Check every action, undo,</text><text class="s" x="730" y="239" text-anchor="middle">workspaces, new interface.</text>
+<text class="h" x="1020" y="80" text-anchor="middle">V4</text><text class="d" x="1020" y="160" text-anchor="middle">8 Nov</text><text class="s" x="1020" y="195" text-anchor="middle">It can see the screen.</text><text class="s" x="1020" y="217" text-anchor="middle">Click by name, messages,</text><text class="s" x="1020" y="239" text-anchor="middle">multi-step jobs.</text>
+<text class="s" x="600" y="305" text-anchor="middle">Nine days. One laptop. Zero cloud.</text>
+</svg>

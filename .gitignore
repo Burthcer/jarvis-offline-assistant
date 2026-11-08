@@ -1,0 +1,13 @@
+data/
+__pycache__/
+*.pyc
+.venv/
+logs/
+voice_samples/
+CHECKPOINT.md
+HANDOFF_CHATGPT.md
+CLAUDE.md
+CHECKPOINT*.md
+HANDOFF*.md
+handout.md
+FABLE_V3_NEXT_WORK.md

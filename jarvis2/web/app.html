@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jarvis</title>
+<script>try{document.documentElement.dataset.theme=new URLSearchParams(location.hash.slice(1)).get('theme')||localStorage.getItem('jarvis-theme')||'light';}catch{}</script>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <nav aria-label="Pages">
+    <button class="tab on" data-page="home">Home</button>
+    <button class="tab" data-page="plans">Plans</button>
+    <button class="tab" data-page="timers">Timers <span id="timerCount" class="count" hidden></span></button>
+    <button class="tab" data-page="knowledge">Knowledge</button>
+    <button class="tab" data-page="settings">Settings</button>
+  </nav>
+  <div class="tools">
+    <button class="ghost" id="themeToggle" aria-label="Switch to dark mode">Dark mode</button>
+    <span class="tiny" id="note"></span>
+    <span class="meter" aria-hidden="true"><i id="meter"></i></span>
+    <button class="ghost" id="copy">Copy log</button>
+  </div>
+</header>
+
+<main id="home" class="page home">
+  <section class="card status" aria-label="Jarvis status">
+    <div class="row between"><strong class="brand">Jarvis</strong><span class="mono tiny dim">Offline</span></div>
+    <div class="orb idle" id="orb">
+      <img src="mark.svg" alt="" class="companionMark">
+    </div>
+    <div class="center">
+      <div class="title" id="stateTitle">At your service</div>
+      <div class="sub" id="stateSub">Say "Jarvis" any time</div>
+    </div>
+    <div class="wave" id="wave" aria-hidden="true"></div>
+    <p class="statusCaption">Your day.<br><em>A little more in hand.</em></p>
+    <button class="ghost wide" id="mic">Microphone on</button>
+  </section>
+
+  <section class="card chat" aria-label="Conversation">
+    <div class="row between head"><h2>Conversation</h2><label class="switch"><input type="checkbox" id="details"> Show details</label></div>
+    <div class="log" id="log" aria-live="polite"></div>
+    <form id="say" class="row">
+      <label for="input" class="sr">Type to Jarvis</label>
+      <input id="input" autocomplete="off" placeholder='Say "Jarvis", or type here'>
+      <button class="solid" aria-label="Send">Send</button>
+    </form>
+  </section>
+
+  <aside class="side" aria-label="Timers and reminders">
+    <div class="card personal"><div class="row between"><h2>01 / Your world</h2><button class="ghost small" id="addHomeFact" type="button">Add fact</button></div><div id="homeFactForm"></div><div id="personalCards"><p class="empty">Tell me what matters, sir.</p></div><button class="ghost small" id="allFacts" type="button">All saved facts ↗</button></div>
+    <div class="card"><h2>Timers</h2><div id="sideTimers" class="sideT"></div>
+      <div class="quick" role="group" aria-label="Start a timer"><button class="chip small" data-secs="60">1</button><button class="chip small" data-secs="300">5</button><button class="chip small" data-secs="600">10</button><button class="chip small" data-secs="1500">25</button><span class="tiny dim">min</span></div>
+    </div>
+    <div class="card grow"><h2>Reminders</h2><div id="sideRem"></div>
+      <form id="addRem" class="row addRem"><label for="remText" class="sr">New reminder</label><input id="remText" autocomplete="off" placeholder="call mom at 5pm"><button class="ghost" aria-label="Add reminder">Add</button></form>
+    </div>
+  </aside>
+</main>
+
+<main id="plans" class="page plansPage" hidden>
+  <header class="planHero"><span class="eyebrow">02 / A little ahead</span><h1>Less to keep<br><em>in your head.</em></h1><p>Events, registration dates and tasks. Saved here, on your laptop.</p></header>
+  <div class="plannerGrid">
+    <section class="card"><div class="row between"><h2>Events &amp; deadlines</h2><span class="tag">Local</span></div><div id="eventCards"></div>
+      <form id="trackEvent" class="plannerForm"><label for="eventInput">What are you going to?</label><input id="eventInput" placeholder="Techfest on 20 November" required maxlength="180"><button class="solid">Track event ↗</button></form>
+      <form id="assignmentForm" class="plannerForm"><label for="assignmentText">Assignment or homework</label><input id="assignmentText" required maxlength="120" placeholder="Maths lab record"><input id="assignmentDue" required maxlength="100" aria-label="Assignment deadline" placeholder="Tomorrow at 5 pm"><button class="solid">Save deadline</button></form>
+      <form id="repeatForm" class="plannerForm"><label for="repeatText">Recurring reminder</label><input id="repeatText" required maxlength="120" placeholder="Revise notes"><select id="repeatInterval"><option value="daily">Every day</option><option value="weekly">Every week</option></select><input id="repeatTime" type="time" value="09:00" required><button class="solid">Add recurring reminder</button></form>
+      <button id="briefingNow" class="ghost" type="button">Give me my daily briefing</button>
+    </section>
+    <section class="card"><h2>Plans in motion</h2><div id="jobCards"></div>
+      <form id="makePlan" class="plannerForm"><label for="planInput">What should I take care of?</label><textarea id="planInput" rows="3" maxlength="350" required placeholder="Open Notepad and set a timer for 25 minutes"></textarea><button class="solid">Make a plan ↗</button></form>
+      <p class="plannerHint">See the steps first. Sending and other sensitive steps need a separate yes.</p>
+    </section>
+  </div>
+</main>
+
+<main id="timers" class="page timersPage" hidden>
+  <div class="row between wrap">
+    <h1>Timers</h1>
+    <div class="row wrap" role="group" aria-label="Start a new timer">
+      <button class="chip" data-secs="60">1 min</button><button class="chip" data-secs="300">5 min</button><button class="chip" data-secs="600">10 min</button><button class="chip" data-secs="1500">25 min</button>
+      <form id="custom" class="row setter">
+        <label class="unit">Hours<input id="hrs" type="number" min="0" max="23" placeholder="0"></label>
+        <label class="unit">Min<input id="mins" type="number" min="0" max="59" placeholder="00"></label>
+        <label class="unit">Sec<input id="secs" type="number" min="0" max="59" placeholder="00"></label>
+        <button class="solid amber">Start</button>
+      </form>
+    </div>
+  </div>
+  <div id="timerCards" class="cards"></div>
+  <p id="noTimers" class="empty">No timers running, sir. Pick one above, or say "Jarvis, set a timer for 10 minutes".</p>
+</main>
+
+<main id="knowledge" class="page settingsPage" hidden>
+  <div class="settingsCol">
+    <div class="row between"><h1>What I know</h1><span id="kstate" class="tiny dim" role="status"></span></div>
+    <p class="dim">Everything stays on this laptop. Delete any line, pause learning, or forget it all.</p>
+    <section class="savedFacts"><div class="row between"><h2>Things you told me to remember</h2><button class="solid" id="addFact" type="button">Add fact</button></div><input id="factSearch" type="search" placeholder="Find a fact or alternate name" aria-label="Search saved facts"><div id="knowledgeFactForm"></div><div class="group" id="k_notes"></div></section>
+    <section><h2>Learning</h2><div class="group">
+      <label class="set"><span><b>Learn from you</b><small>Corrections, how often you use things, habits. A correction ("no, I meant Chrome") always counts</small></span><input type="checkbox" class="toggle" id="k_learn"></label>
+    </div></section>
+    <section><h2>Words I learned</h2><p class="tiny dim">Corrections are learned immediately; repeated guesses need three successes.</p><form id="teachName" class="row wrap"><input id="heardName" placeholder="What Jarvis hears" required maxlength="60"><input id="actualName" placeholder="Installed app or website name" required maxlength="60"><button class="solid">Teach name</button><span id="nameFeedback" role="status"></span></form><div class="group" id="k_words"></div></section>
+    <section><h2>What you use most</h2><div class="group" id="k_usage"></div></section>
+    <section><h2>Habits I noticed</h2><div class="group" id="k_habits"></div></section>
+    <section><h2>Routines you saved</h2><form id="newRoutine" class="plannerForm"><input id="routineName" placeholder="Routine name" maxlength="40" required><textarea id="routineSteps" placeholder="Open Notepad and set a timer for 25 minutes" required maxlength="1000"></textarea><button class="solid">Save routine</button><span id="routineFeedback" role="status"></span></form><div class="group" id="k_routines"></div></section>
+    <section><h2>Forget</h2><div class="group"><div class="set"><span><b>Forget everything I learned</b><small>Words, habits, routines and counts. Notes, reminders and the log stay</small></span><span class="row" id="k_wipe"></span></div></div></section>
+  </div>
+</main>
+
+<main id="settings" class="page settingsPage" hidden>
+  <div class="settingsCol">
+    <div class="row between"><h1>Settings</h1><span id="saved" class="tiny dim" role="status"></span></div>
+    <section><h2>Your information</h2><div class="group"><div class="set"><span><b>Saved facts</b><small>Edit, copy or remove what I know about you</small></span><button class="ghost" id="manageFacts" type="button">Edit saved facts</button></div></div></section>
+
+    <section><h2>Listening</h2><div class="group">
+      <label class="set"><span><b>Microphone</b><small>Listen for "Jarvis"</small></span><input type="checkbox" class="toggle" id="s_voice_on"></label>
+      <label class="set"><span><b>Speak out loud</b><small>Replies and reminders</small></span><input type="checkbox" class="toggle" id="s_speak_replies"></label>
+      <label class="set"><span><b>Natural replies</b><small>The AI words each reply itself. Off: fixed sentences, which start a little sooner</small></span><input type="checkbox" class="toggle" id="s_natural_replies"></label>
+    </div></section>
+
+    <section><h2>Voice</h2><div class="group">
+      <label class="set"><span><b>Voice</b></span><span class="row"><select id="s_tts_voice"></select><button type="button" class="ghost" id="hear">Hear it</button></span></label>
+      <label class="set"><span><b>Volume</b><small>Or say "increase your volume"</small></span><span class="slide"><input type="range" id="s_tts_volume" min="0.2" max="1" step="0.05"><output id="o_tts_volume"></output></span></label>
+      <label class="set"><span><b>Speed</b><small>Or say "speak slower"</small></span><span class="slide"><input type="range" id="s_tts_speed" min="0.6" max="1.6" step="0.05"><output id="o_tts_speed"></output></span></label>
+      <label class="set column"><span><b>When you call me</b><small>One reply per line, picked at random</small></span><textarea id="s_wake_replies" rows="3"></textarea></label>
+    </div></section>
+
+    <section><h2>Websites</h2><div class="group" id="browsers"></div></section>
+
+    <section><h2>Last request</h2><div class="group"><div class="set"><span><b>What happened?</b><small>See what I heard, attempted and reported</small></span><button class="ghost" id="showDiagnostics" type="button">Show last request</button></div><pre id="diagnostics" style="white-space:pre-wrap;overflow-wrap:anywhere;padding:16px;margin:0" hidden></pre></div></section>
+    <section><h2>Your preferences</h2><div class="group">
+      <label class="set"><span>Quiet hours (visual replies stay on)</span><input id="quiet_enabled" type="checkbox"></label>
+      <label class="set"><span>Quiet from</span><input id="quiet_start" type="time"></label><label class="set"><span>Quiet until</span><input id="quiet_end" type="time"></label>
+      <label class="set"><span>Cooler idle mode (release idle AI sooner; first complex request may take longer)</span><input id="cool_mode" type="checkbox"></label>
+      <label class="set"><span>Daily briefing, once per day</span><input id="daily_briefing" type="checkbox"></label>
+      <label class="set"><span>Keep recent command recordings for troubleshooting</span><input id="save_voice_clips" type="checkbox"></label>
+      <div class="set"><button class="solid" id="savePreferences">Save preferences</button><span id="preferencesFeedback" role="status"></span></div>
+    </div></section>
+    <section><h2>Local backups</h2><p class="tiny dim">Saved facts, reminders, routines and learning. Accounts and recordings are excluded. Restore replaces local data and first saves a safety copy.</p><div class="group"><div class="set"><button class="solid" id="backupNow">Create backup</button><select id="backupList" aria-label="Choose local backup"></select><button class="ghost" id="restoreBackup">Restore…</button></div><div class="set" id="restoreConfirmation" hidden><span>Replace current local data?</span><button id="confirmRestore" class="solid">Yes, restore</button><button id="cancelRestore" class="ghost">Cancel</button></div><p id="backupFeedback" role="status" style="padding:16px"></p></div></section>
+    <section><h2>Google connections</h2><p class="tiny dim">Optional online access: read unread Gmail subjects and the next seven days of Google Calendar. No sending, deleting or background sync. A Google Desktop OAuth client JSON is required to identify this app; never enter your Google password here.</p><div class="group"><div class="set"><button id="connectGoogle" class="solid">Connect Google…</button><button id="refreshGoogle" class="ghost">Refresh status</button><button id="disconnectGoogle" class="ghost">Disconnect</button></div><p id="googleStatus" role="status" style="padding:16px">Not connected</p><div class="set"><button id="readGmail" class="ghost">Unread Gmail</button><button id="readCalendar" class="ghost">Upcoming calendar</button></div><pre id="googleResults" style="white-space:pre-wrap;overflow-wrap:anywhere;padding:16px"></pre></div></section>
+    <section><h2>Performance</h2><div class="group"><div class="set"><span>Measure real command delays and memory</span><button id="performanceCheck" class="ghost">Refresh measurements</button></div><pre id="performanceResult" style="white-space:pre-wrap;padding:16px"></pre></div></section>
+    <section><h2>Local documents</h2><p class="tiny dim">Read a file you choose. Text stays on this laptop; document contents are never treated as commands.</p><div class="group"><div class="set"><button id="openDocument" class="ghost">Open document…</button></div><pre id="documentResult" style="max-height:400px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;padding:16px"></pre></div></section>
+    <section><h2>System</h2><div class="group">
+      <div class="set"><span>Recognise newly installed apps without restarting</span><button id="refreshApps" class="ghost">Refresh apps</button></div>
+      <label class="set"><span><b>Start with Windows</b><small>Off means you open Jarvis yourself</small></span><input type="checkbox" class="toggle" id="s_start_with_windows"></label>
+      <div class="set"><span><b>Online models</b><small>AI runs on this laptop. Optional Google reads connect only when you ask.</small></span><span class="tag">Offline AI</span></div>
+    </div></section>
+  </div>
+</main>
+
+<div id="alert" class="alertBack" hidden>
+  <div class="alertCard" role="alertdialog" aria-labelledby="alertTitle">
+    <div class="ripple"><i></i><i></i><i></i><div class="beat" id="alertFace">00:00</div></div>
+    <div><h1 id="alertTitle"></h1><p id="alertSub" class="dim"></p></div>
+    <div class="row"><button class="ghost big" id="alertSnooze">Snooze 5 min</button><button class="solid big" id="alertStop">Stop</button></div>
+  </div>
+</div>
+<script src="app.js"></script>
+<script src="background.js"></script>
+<script src="dock.js"></script>
+</body>
+</html>

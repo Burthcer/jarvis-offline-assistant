@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jarvis</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <nav aria-label="Pages">
+    <button class="tab on" data-page="home">Home</button>
+    <button class="tab" data-page="timers">Timers <span id="timerCount" class="count" hidden></span></button>
+    <button class="tab" data-page="settings">Settings</button>
+  </nav>
+  <div class="tools">
+    <span class="tiny" id="note"></span>
+    <span class="meter" aria-hidden="true"><i id="meter"></i></span>
+    <button class="ghost" id="copy">Copy log</button>
+  </div>
+</header>
+
+<main id="home" class="page home">
+  <section class="card status" aria-label="Jarvis status">
+    <div class="row between"><strong class="brand">Jarvis</strong><span class="mono tiny dim">Offline</span></div>
+    <div class="orb idle" id="orb">
+      <svg viewBox="0 0 220 220" aria-hidden="true">
+        <circle cx="110" cy="110" r="104" fill="none" stroke="#1C232D"></circle>
+        <g class="ring r1"><circle cx="110" cy="110" r="92" fill="none" stroke="#5FD4FF" stroke-width="2" stroke-linecap="round" stroke-dasharray="150 60 40 60 90 178"></circle></g>
+        <g class="ring r2"><circle cx="110" cy="110" r="76" fill="none" stroke="#A5E6FF" stroke-opacity=".55" stroke-width="1.5" stroke-dasharray="4 10"></circle></g>
+        <g class="core"><circle cx="110" cy="110" r="46" fill="#5FD4FF" fill-opacity=".12"></circle><circle cx="110" cy="110" r="30" fill="#5FD4FF" fill-opacity=".3"></circle><circle cx="110" cy="110" r="15" fill="#DFF6FF"></circle></g>
+      </svg>
+    </div>
+    <div class="center">
+      <div class="title" id="stateTitle">At your service</div>
+      <div class="sub" id="stateSub">Say "Jarvis" any time</div>
+    </div>
+    <div class="wave" id="wave" aria-hidden="true"></div>
+    <button class="ghost wide" id="mic">Microphone on</button>
+  </section>
+
+  <section class="card chat" aria-label="Conversation">
+    <div class="row between head"><h2>Conversation</h2><label class="switch"><input type="checkbox" id="details"> Show details</label></div>
+    <div class="log" id="log" aria-live="polite"></div>
+    <form id="say" class="row">
+      <label for="input" class="sr">Type to Jarvis</label>
+      <input id="input" autocomplete="off" placeholder='Say "Jarvis", or type here'>
+      <button class="solid" aria-label="Send">Send</button>
+    </form>
+  </section>
+
+  <aside class="side" aria-label="Timers and reminders">
+    <div class="card"><h2>Timers</h2><div id="sideTimers" class="sideT"></div>
+      <div class="quick" role="group" aria-label="Start a timer"><button class="chip small" data-secs="60">1</button><button class="chip small" data-secs="300">5</button><button class="chip small" data-secs="600">10</button><button class="chip small" data-secs="1500">25</button><span class="tiny dim">min</span></div>
+    </div>
+    <div class="card grow"><h2>Reminders</h2><div id="sideRem"></div>
+      <form id="addRem" class="row addRem"><label for="remText" class="sr">New reminder</label><input id="remText" autocomplete="off" placeholder="call mom at 5pm"><button class="ghost" aria-label="Add reminder">Add</button></form>
+    </div>
+  </aside>
+</main>
+
+<main id="timers" class="page timersPage" hidden>
+  <div class="row between wrap">
+    <h1>Timers</h1>
+    <div class="row wrap" role="group" aria-label="Start a new timer">
+      <button class="chip" data-secs="60">1 min</button><button class="chip" data-secs="300">5 min</button><button class="chip" data-secs="600">10 min</button><button class="chip" data-secs="1500">25 min</button>
+      <form id="custom" class="row setter">
+        <label class="unit">Hours<input id="hrs" type="number" min="0" max="23" placeholder="0"></label>
+        <label class="unit">Min<input id="mins" type="number" min="0" max="59" placeholder="00"></label>
+        <label class="unit">Sec<input id="secs" type="number" min="0" max="59" placeholder="00"></label>
+        <button class="solid amber">Start</button>
+      </form>
+    </div>
+  </div>
+  <div id="timerCards" class="cards"></div>
+  <p id="noTimers" class="empty">No timers running, sir. Pick one above, or say "Jarvis, set a timer for 10 minutes".</p>
+</main>
+
+<main id="settings" class="page settingsPage" hidden>
+  <div class="settingsCol">
+    <div class="row between"><h1>Settings</h1><span id="saved" class="tiny dim" role="status"></span></div>
+
+    <section><h2>Listening</h2><div class="group">
+      <label class="set"><span><b>Microphone</b><small>Listen for "Jarvis"</small></span><input type="checkbox" class="toggle" id="s_voice_on"></label>
+      <label class="set"><span><b>Speak out loud</b><small>Replies and reminders</small></span><input type="checkbox" class="toggle" id="s_speak_replies"></label>
+      <label class="set"><span><b>Natural replies</b><small>The AI words each reply itself. Off: fixed sentences, which start a little sooner</small></span><input type="checkbox" class="toggle" id="s_natural_replies"></label>
+    </div></section>
+
+    <section><h2>Voice</h2><div class="group">
+      <label class="set"><span><b>Voice</b></span><span class="row"><select id="s_tts_voice"></select><button type="button" class="ghost" id="hear">Hear it</button></span></label>
+      <label class="set"><span><b>Volume</b><small>Or say "increase your volume"</small></span><span class="slide"><input type="range" id="s_tts_volume" min="0.2" max="1" step="0.05"><output id="o_tts_volume"></output></span></label>
+      <label class="set"><span><b>Speed</b><small>Or say "speak slower"</small></span><span class="slide"><input type="range" id="s_tts_speed" min="0.6" max="1.6" step="0.05"><output id="o_tts_speed"></output></span></label>
+      <label class="set column"><span><b>When you call me</b><small>One reply per line, picked at random</small></span><textarea id="s_wake_replies" rows="3"></textarea></label>
+    </div></section>
+
+    <section><h2>Websites</h2><div class="group" id="browsers"></div></section>
+
+    <section><h2>System</h2><div class="group">
+      <label class="set"><span><b>Start with Windows</b><small>Off means you open Jarvis yourself</small></span><input type="checkbox" class="toggle" id="s_start_with_windows"></label>
+      <div class="set"><span><b>Online models</b><small>Offline only: nothing leaves this laptop</small></span><span class="tag">Coming soon</span></div>
+    </div></section>
+  </div>
+</main>
+
+<div id="alert" class="alertBack" hidden>
+  <div class="alertCard" role="alertdialog" aria-labelledby="alertTitle">
+    <div class="ripple"><i></i><i></i><i></i><div class="beat" id="alertFace">00:00</div></div>
+    <div><h1 id="alertTitle"></h1><p id="alertSub" class="dim"></p></div>
+    <div class="row"><button class="ghost big" id="alertSnooze">Snooze 5 min</button><button class="solid big" id="alertStop">Stop</button></div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

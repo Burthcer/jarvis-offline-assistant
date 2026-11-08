@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-label="How Jarvis works: from your voice to a verified action">
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#e8eef3}.t{font-size:18px;font-weight:600}.s{font-size:14px;fill:#9fb2c2}.b{fill:#1b2a38;stroke:#3a5368;stroke-width:1.5}.a{fill:#243a4d;stroke:#9fd8f0;stroke-width:2}.o{fill:#3a2d1c;stroke:#f0b060;stroke-width:2}.ar{stroke:#6fb8d8;stroke-width:2.5;fill:none;marker-end:url(#h)}</style>
+<defs><marker id="h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6fb8d8"/></marker></defs>
+<rect width="1200" height="520" rx="18" fill="#0f1823"/>
+<text x="600" y="58" text-anchor="middle" style="font-size:26px;font-weight:700">From your voice to a checked action, all on one laptop</text>
+<rect class="b" x="40" y="110" width="170" height="90" rx="14"/><text class="t" x="125" y="150" text-anchor="middle">1. Ears</text><text class="s" x="125" y="176" text-anchor="middle">mic + wake name</text>
+<rect class="b" x="260" y="110" width="170" height="90" rx="14"/><text class="t" x="345" y="150" text-anchor="middle">2. Speech to text</text><text class="s" x="345" y="176" text-anchor="middle">Whisper, on the GPU</text>
+<rect class="a" x="480" y="110" width="200" height="90" rx="14"/><text class="t" x="580" y="150" text-anchor="middle">3. Rules first</text><text class="s" x="580" y="176" text-anchor="middle">instant, no AI needed</text>
+<rect class="b" x="730" y="110" width="200" height="90" rx="14"/><text class="t" x="830" y="150" text-anchor="middle">4. Small AI model</text><text class="s" x="830" y="176" text-anchor="middle">only for messy speech</text>
+<rect class="o" x="980" y="110" width="180" height="90" rx="14"/><text class="t" x="1070" y="150" text-anchor="middle">5. Allowlist</text><text class="s" x="1070" y="176" text-anchor="middle">safe actions only</text>
+<path class="ar" d="M210 155H255"/><path class="ar" d="M430 155H475"/><path class="ar" d="M680 155H725"/><path class="ar" d="M930 155H975"/>
+<path class="ar" d="M1070 200V270"/>
+<rect class="o" x="960" y="275" width="220" height="90" rx="14"/><text class="t" x="1070" y="315" text-anchor="middle">6. Do it</text><text class="s" x="1070" y="341" text-anchor="middle">apps, tabs, clicks, timers</text>
+<rect class="a" x="690" y="275" width="220" height="90" rx="14"/><text class="t" x="800" y="315" text-anchor="middle">7. Check it worked</text><text class="s" x="800" y="341" text-anchor="middle">read the state back</text>
+<rect class="b" x="420" y="275" width="220" height="90" rx="14"/><text class="t" x="530" y="315" text-anchor="middle">8. Reply</text><text class="s" x="530" y="341" text-anchor="middle">Done, sir. (only if true)</text>
+<rect class="b" x="150" y="275" width="220" height="90" rx="14"/><text class="t" x="260" y="315" text-anchor="middle">9. Voice + screen</text><text class="s" x="260" y="341" text-anchor="middle">British voice, living reactor</text>
+<path class="ar" d="M960 320H915"/><path class="ar" d="M690 320H645"/><path class="ar" d="M420 320H375"/>
+<rect x="40" y="410" width="1120" height="80" rx="14" fill="#16222e" stroke="#2c4152"/>
+<text x="64" y="445" style="font-size:16px;font-weight:600">Always in the loop:</text>
+<text class="s" x="64" y="470">Risky things ask for a yes  ·  Memory and Knowledge stay local  ·  No telemetry  ·  Models unload when idle  ·  Rules before AI</text>
+</svg>
